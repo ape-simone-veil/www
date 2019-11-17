@@ -17,8 +17,10 @@ wp-content/wp-rocket-config/
 
 /.htaccess
 /..htaccess.swp
+/.user.ini
 /license.txt
 /readme.html
 /readme.*.html
 /sitemap.xml
 /sitemap.xml.gz
+/wordfence-waf.php
