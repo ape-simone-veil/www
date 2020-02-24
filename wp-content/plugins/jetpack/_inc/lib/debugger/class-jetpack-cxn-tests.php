@@ -40,10 +40,11 @@ class Jetpack_Cxn_Tests extends Jetpack_Cxn_Test_Base {
 		 * Determines if the WP.com testing suite should be included.
 		 *
 		 * @since 7.1.0
+		 * @since 8.1.0 Default false.
 		 *
-		 * @param bool $run_test To run the WP.com testing suite. Default true.
+		 * @param bool $run_test To run the WP.com testing suite. Default false.
 		 */
-		if ( apply_filters( 'jetpack_debugger_run_self_test', true ) ) {
+		if ( apply_filters( 'jetpack_debugger_run_self_test', false ) ) {
 			/**
 			 * Intentionally added last as it checks for an existing failure state before attempting.
 			 * Generally, any failed location condition would result in the WP.com check to fail too, so
@@ -157,7 +158,7 @@ class Jetpack_Cxn_Tests extends Jetpack_Cxn_Test_Base {
 		if ( function_exists( 'xml_parser_create' ) ) {
 			$result = self::passing_test( $name );
 		} else {
-			$result = self::failing_test( $name, __( 'PHP XML manipluation libraries are not available.', 'jetpack' ), __( "Please ask your hosting provider to refer to our server requirements at https://jetpack.com/support/server-requirements/ and enable PHP's XML module.", 'jetpack' ) );
+			$result = self::failing_test( $name, __( 'PHP XML manipulation libraries are not available.', 'jetpack' ), __( "Please ask your hosting provider to refer to our server requirements at https://jetpack.com/support/server-requirements/ and enable PHP's XML module.", 'jetpack' ) );
 		}
 
 		return $result;
@@ -237,7 +238,8 @@ class Jetpack_Cxn_Tests extends Jetpack_Cxn_Test_Base {
 	protected function test__wpcom_connection_test() {
 		$name = __FUNCTION__;
 
-		if ( ! Jetpack::is_active() || ( new Status() )->is_development_mode() || Jetpack::is_staging_site() || ! $this->pass ) {
+		$status = new Status();
+		if ( ! Jetpack::is_active() || $status->is_development_mode() || $status->is_staging_site() || ! $this->pass ) {
 			return self::skipped_test( $name );
 		}
 
@@ -343,7 +345,8 @@ class Jetpack_Cxn_Tests extends Jetpack_Cxn_Test_Base {
 	protected function last__wpcom_self_test() {
 		$name = 'test__wpcom_self_test';
 
-		if ( ! Jetpack::is_active() || ( new Status() )->is_development_mode() || Jetpack::is_staging_site() || ! $this->pass ) {
+		$status = new Status();
+		if ( ! Jetpack::is_active() || $status->is_development_mode() || $status->is_staging_site() || ! $this->pass ) {
 			return self::skipped_test( $name );
 		}
 
