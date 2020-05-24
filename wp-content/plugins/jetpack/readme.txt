@@ -1,10 +1,10 @@
 === Jetpack by WordPress.com ===
 Contributors: automattic, adamkheckler, aduth, akirk, allendav, alternatekev, andy, annezazu, apeatling, azaozz, batmoo, barry, beaulebens, blobaugh, brbrr, cainm, cena, cfinke, chaselivingston, chellycat, clickysteve, csonnek, danielbachhuber, davoraltman, daniloercoli, delawski, designsimply, dllh, drawmyface, dsmart, dzver, ebinnion, egregor, eliorivero, enej, eoigal, erania-pinnera, ethitter, gcorne, georgestephanis, gibrown, goldsounds, hew, hugobaeta, hypertextranch, iammattthomas, iandunn, jblz, jasmussen, jeffgolenski, jeherve, jenhooks, jenia, jessefriedman, jgs, jkudish, jmdodd, joanrho, johnjamesjacoby, jshreve, kbrownkd, keoshi, koke, kraftbj, lancewillett, lschuyler, macmanx, martinremy, matt, matveb, mattwiebe, maverick3x6, mcsf, mdawaffe, MichaelArestad, migueluy, mikeyarce, mkaz, nancythanki, nickmomrik, obenland, oskosk, pento, professor44, rachelsquirrel, rdcoll, ryancowles, richardmuscat, richardmtl, roccotripaldi, samhotchkiss, scarstocea, scottsweb, sdquirk, simison, stephdau, tmoorewp, tyxla, Viper007Bond, westi, yoavf, zinigor
 Tags: Jetpack, WordPress.com, backup, security, related posts, CDN, speed, anti-spam, social sharing, SEO, video, stats
-Stable tag: 8.2.3
-Requires at least: 5.2
+Stable tag: 8.5
+Requires at least: 5.3
 Requires PHP: 5.6
-Tested up to: 5.3
+Tested up to: 5.4
 
 The ideal plugin for stats, related posts, search engine optimization, social sharing, protection, backups, security, and more.
 
@@ -96,62 +96,45 @@ There are opportunities for developers at all levels to contribute. [Learn more 
 
 == Changelog ==
 
-= 8.2.2 & 8.2.3 =
+= 8.5 =
 
-* Release date: February 20, 2020
-
-* General: fix compatibility issues with other plugins relying on the REST API to communicate with Jetpack, or on the Jetpack registration process.
-* Multisite: resolve issue with Jetpack's loading sequence that would fatal subsites that did not have any individually activated plugins.
-
-= 8.2.1 =
-
-* Release date: February 17, 2020
-
-**Bug fixes**
-
-* Block Editor: avoid errors when uploading additional media to the Slideshow, Tiled Gallery, and Video blocks.
-* Synchronization: address issues that would cause delayed synchronization of your posts to WordPress.com.
-
-= 8.2 =
-
-* Release date: February 11, 2020
-* Release post: https://wp.me/p1moTy-mVu
+* Release date: May 5, 2020
+* Release post: https://wp.me/p1moTy-p00
 
 **Major Enhancements**
 
-* Calendly Block: a useful tool for all coaches, consultants, therapists… Add the block to a post or page and anyone can then book appointments, meetings, and classes right from your website.
-* EventBrite Block: allow your visitors to register to events right from your site with this new block.
-* OpenTable Block: restaurant owners, you can now add a reservation form to your site to make it easy for anyone to book a table online, via your site.
+* Podcast Player: you can now embed and play recent podcast episodes in any post or page.
 
 **Enhancements**
 
-* Contact Form: add IP and Feedback date to data that can be exported via the CSV tool.
-* Dashboard: display a notice when a site uses conflicting plans.
-* Map Block: improve the calculation and persistence of maps' center points.
-* Map Block: improve the generation of an access token on WordPress.com sites.
-* Map Block: update Mapbox GL library to opt into map load based billing.
-* Shortcodes: add new Vimeo shortcode format.
-* Subscriptions: display a clear error message when you try to subscribe to a site where you've already subscribed but did not validate your subscription.
-* Subscriptions: display a clear message when an email having many pending confirmations tries to subscribe to a site.
-* Synchronization: improve performance of data synchronization with WordPress.com.
+* Comments: update how comment types are stored to be fully compatible with upcoming WordPress Core changes.
+* OpenTable Block: add a warning notice when their selected combination of style and align options may cause display issues.
+* Publicize: allow site owners to set a filter to enable embedding media directly into Twitter embeds.
+* Revue Block: add new customization options.
+* Search: add new option to configure the Instant Search overlay.
+* Sync: improve performance of the synchronization process on sites with plugins generating an important amount of posts.
 
 **Improved compatibility**
 
-* Connnection Flow: ongoing work to improve the reliability of the connection between your site and WordPress.com.
-* Connection Flow: improve detection of hosting environments for better communication with WordPress.com.
-* General: avoid any login issues when using other plugins that may interact with cookies on your site.
-* Gutenberg: avoid any layout issues that may appear in the block editor when using the latest version of the Gutenberg plugin.
-* Related Posts: ensure that any filters customizing the display of Related Posts also apply to posts displayed with the AMP plugin.
-* Sharing: do not output Jetpack's Open Graph Meta Tags if the Complete Open Graph plugin is present on your site.
+* Ad Block: ensure full compatibility of the feature with the AMP plugin.
+* Carousel: ensure full compatibility of the feature with the AMP plugin.
+* Embeds: ensure that all recipes, as well as Google Maps embeds and Scribd embeds, can be viewed with no errors in AMP views.
+* General: when using a beta version of Jetpack via the Jetpack Beta Plugin, allow Multisite connections to be managed in Network Admin.
+* Shortcodes: improve behavior of the Archives shortcode in AMP views.
+* Widgets: ensure that the Twitter Timeline and Internet Defense League widgets are compatible with the AMP plugin.
 
 **Bug fixes**
 
-* Blocks / Dashboard: ensure that blocks as well as Jetpack's dashboard can be used even in older browsers such as Internet Explorer 11.
-* Contact Info Block: ensure that Google's Structured Data tool can recognize phone numbers added to the block.
-* Copy Post: ensure correct sharing and like settings are copied when posts are duplicated.
-* Subscriptions: maintain email subscription settings when deactivating and reactivating the feature.
-* WordPress.com REST API: avoid PHP notices when a media file is edited via the API.
-* WordPress.com REST API: ensure that image URLs are currently set when uploading an image multiple times.
+* Dashboard: fix layout issue when using the monthly / yearly toggle in the Jetpack dashboard.
+* Contact Form: avoid making unnecessary requests to the Akismet API.
+* Crowdsignal: fix survey embeds when posts are loaded via Infinite Scroll.
+* Embeds: provide helpful feedback when inline PDFs cannot be displayed in mobile browsers.
+* General: fix comment notification overrides that direct moderation links to the WordPress.com interface.
+* General: improve deprecated hook notices to handle anonymous functions.
+* Site Health Tools: reduce false positives in Jetpack connection tests.
+* Slideshow Block: avoid layout issues when a block is added to a column block.
+* Subscriptions Block: fix layout issue in email input box.
+* Sync: improve performance of the synchronization process when processing a large amount of Akismet feedback.
 
 --------
 

@@ -52,9 +52,10 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'meta'              => '(object) Meta data',
 		'quota'             => '(array) An array describing how much space a user has left for uploads',
 		'launch_status'     => '(string) A string describing the launch status of a site',
-		'migration_status'  => '(string) A string describing the migration status of the site.',
+		'site_migration'    => '(array) Data about any migration into the site.',
 		'is_fse_active'     => '(bool) If the site has Full Site Editing active or not.',
 		'is_fse_eligible'   => '(bool) If the site is capable of Full Site Editing or not',
+		'is_core_site_editor_enabled'	=> '(bool) If the site has the core site editor enabled.',
 	);
 
 	protected static $no_member_fields = array(
@@ -75,9 +76,10 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'is_following',
 		'meta',
 		'launch_status',
-		'migration_status',
+		'site_migration',
 		'is_fse_active',
 		'is_fse_eligible',
+		'is_core_site_editor_enabled',
 	);
 
 	protected static $site_options_format = array(
@@ -140,11 +142,13 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 		'site_goals',
 		'site_segment',
 		'import_engine',
+		'is_wpforteams_site',
+		'site_creation_flow',
 	);
 
 	protected static $jetpack_response_field_additions = array(
 		'subscribers_count',
-		'migration_status',
+		'site_migration',
 	);
 
 	protected static $jetpack_response_field_member_additions = array(
@@ -313,7 +317,10 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 				break;
 			case 'is_coming_soon' :
 				// This option is stored on wp.com for both simple and atomic sites. @see mu-plugins/private-blog.php
-				$response[ $key ] = $this->site->is_private() && get_option( 'wpcom_coming_soon' );
+				$response[ $key ] = $this->site->is_coming_soon();;
+				break;
+			case 'launch_status' :
+				$response[ $key ] = $this->site->get_launch_status();
 				break;
 			case 'visible' :
 				$response[ $key ] = $this->site->is_visible();
@@ -388,17 +395,17 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 			case 'quota' :
 				$response[ $key ] = $this->site->get_quota();
 				break;
-			case 'launch_status' :
-				$response[ $key ] = $this->site->get_launch_status();
-				break;
-			case 'migration_status' :
-				$response[ $key ] = $this->site->get_migration_status();
+			case 'site_migration' :
+				$response[ $key ] = $this->site->get_migration_meta();
 				break;
 			case 'is_fse_active':
 				$response[ $key ] = $this->site->is_fse_active();
 				break;
 			case 'is_fse_eligible':
 				$response[ $key ] = $this->site->is_fse_eligible();
+				break;
+			case 'is_core_site_editor_enabled':
+				$response[ $key ] = $this->site->is_core_site_editor_enabled();
 				break;
 		}
 
@@ -601,6 +608,16 @@ class WPCOM_JSON_API_GET_Site_Endpoint extends WPCOM_JSON_API_Endpoint {
 					break;
 				case 'import_engine':
 					$options[ $key ] = $site->get_import_engine();
+					break;
+
+				case 'is_wpforteams_site':
+					$options[ $key ] = $site->is_wpforteams_site();
+					break;
+				case 'site_creation_flow':
+					$site_creation_flow = $site->get_site_creation_flow();
+					if ( $site_creation_flow ) {
+						$options[ $key ] = $site_creation_flow;
+					}
 					break;
 			}
 		}
